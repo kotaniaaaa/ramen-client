@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { Breadcrumb, Loading, Pagination, Restaurant } from "../components";
-import { getRestaurants } from "../api.js";
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { Breadcrumb, Loading, Pagination, Restaurant } from '../components';
+import { getRestaurants } from '../api.js';
 
+/**ラーメン店一覧ページ
+ * path='/restaurants' */
 export function RestaurantListPage() {
   const [restaurants, setRestaurants] = useState(null);
 
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const perPage = 5;
-  const page = +query.get("page") || 1;
+  const page = +query.get('page') || 1;
 
   useEffect(() => {
     getRestaurants({
@@ -22,11 +24,11 @@ export function RestaurantListPage() {
 
   return (
     <>
-      <div className="box">
+      <div className='box'>
         <Breadcrumb
           links={[
-            { href: "/", content: "Top" },
-            { href: "/restaurants", content: "ラーメン店一覧", active: true },
+            { href: '/', content: 'Top' },
+            { href: '/restaurants', content: 'ラーメン店一覧', active: true },
           ]}
         />
       </div>
@@ -34,14 +36,14 @@ export function RestaurantListPage() {
         <Loading />
       ) : (
         <>
-          <div className="block">
+          <div className='block'>
             {restaurants.rows.map((restaurant) => {
               return <Restaurant key={restaurant.id} restaurant={restaurant} />;
             })}
           </div>
-          <div className="block">
+          <div className='block'>
             <Pagination
-              path="/restaurants"
+              path='/restaurants'
               page={page}
               perPage={perPage}
               count={restaurants?.count}
