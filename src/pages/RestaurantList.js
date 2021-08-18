@@ -9,8 +9,11 @@ export function RestaurantListPage() {
   const [restaurants, setRestaurants] = useState(null);
 
   const location = useLocation();
+  /** クエリ文字列を渡してURLSearchParamsオブジェクト作成*/
   const query = new URLSearchParams(location.search);
+  /**お店の最大表示数 */
   const perPage = 5;
+  /**現在のページ*/
   const page = +query.get('page') || 1;
 
   useEffect(() => {

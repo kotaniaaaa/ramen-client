@@ -3,11 +3,15 @@ import { Link } from 'react-router-dom';
 import { getRestaurants } from '../api.js';
 import { Loading, Restaurant } from '../components';
 
+/**
+ * ルートページ
+ */
 export function RootPage() {
   const [restaurants, setRestaurants] = useState(null);
 
   useEffect(() => {
     // レンダーされた後に動作する
+    // クエリを「limit3」と指定する
     getRestaurants({ limit: 3 }).then((data) => {
       setRestaurants(data);
     });

@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
-import { getRestaurant, getRestaurantReviews } from "../api.js";
-import { Breadcrumb, Loading, Pagination, Review } from "../components";
+import { useEffect, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import { getRestaurant, getRestaurantReviews } from '../api.js';
+import { Breadcrumb, Loading, Pagination, Review } from '../components';
 
 function Form({ onSubmit }) {
   async function handleFormSubmit(event) {
@@ -11,37 +11,37 @@ function Form({ onSubmit }) {
         title: event.target.elements.title.value,
         comment: event.target.elements.comment.value,
       };
-      event.target.elements.title.value = "";
-      event.target.elements.comment.value = "";
+      event.target.elements.title.value = '';
+      event.target.elements.comment.value = '';
       onSubmit(record);
     }
   }
 
   return (
     <form onSubmit={handleFormSubmit}>
-      <div className="field">
-        <div className="control">
-          <label className="label">タイトル</label>
-          <div className="control">
-            <input name="title" className="input" required disabled />
+      <div className='field'>
+        <div className='control'>
+          <label className='label'>タイトル</label>
+          <div className='control'>
+            <input name='title' className='input' required disabled />
           </div>
         </div>
       </div>
-      <div className="field">
-        <div className="control">
-          <label className="label">コメント</label>
-          <div className="control">
-            <textarea name="comment" className="textarea" required disabled />
+      <div className='field'>
+        <div className='control'>
+          <label className='label'>コメント</label>
+          <div className='control'>
+            <textarea name='comment' className='textarea' required disabled />
           </div>
         </div>
       </div>
-      <div className="field">
-        <div className="control">
-          <button type="submit" className="button is-warning" disabled>
+      <div className='field'>
+        <div className='control'>
+          <button type='submit' className='button is-warning' disabled>
             レビューを投稿
           </button>
         </div>
-        <p className="help">ログインが必要です。</p>
+        <p className='help'>ログインが必要です。</p>
       </div>
     </form>
   );
@@ -50,41 +50,41 @@ function Form({ onSubmit }) {
 function Restaurant({ restaurant, reviews, page, perPage }) {
   return (
     <>
-      <article className="box">
-        <h3 className="title is-5">{restaurant.name}</h3>
-        <div className="columns">
-          <div className="column is-6">
-            <figure className="image is-square">
+      <article className='box'>
+        <h3 className='title is-5'>{restaurant.name}</h3>
+        <div className='columns'>
+          <div className='column is-6'>
+            <figure className='image is-square'>
               <img
-                src={restaurant.image || "/images/restaurants/noimage.png"}
+                src={restaurant.image || '/images/restaurants/noimage.png'}
                 alt={restaurant.name}
               />
             </figure>
           </div>
-          <div className="column is-6">
-            <figure className="image is-square">
+          <div className='column is-6'>
+            <figure className='image is-square'>
               <div
-                className="has-ratio"
+                className='has-ratio'
                 dangerouslySetInnerHTML={{ __html: restaurant.map }}
               ></div>
             </figure>
           </div>
         </div>
       </article>
-      <div className="box">
+      <div className='box'>
         {reviews.rows.length === 0 ? (
           <p>レビューがまだありません。</p>
         ) : (
           <>
-            <div className="block">
+            <div className='block'>
               <p>{reviews.count}件のレビュー</p>
             </div>
-            <div className="block">
+            <div className='block'>
               {reviews.rows.map((review) => {
                 return <Review key={review.id} review={review} />;
               })}
             </div>
-            <div className="block">
+            <div className='block'>
               <Pagination
                 path={`/restaurants/${restaurant.id}`}
                 page={page}
@@ -99,6 +99,10 @@ function Restaurant({ restaurant, reviews, page, perPage }) {
   );
 }
 
+/**
+ * お店詳細
+ * @returns
+ */
 export function RestaurantDetailPage() {
   const [restaurant, setRestaurant] = useState(null);
   const [reviews, setReviews] = useState(null);
@@ -107,7 +111,7 @@ export function RestaurantDetailPage() {
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const perPage = 5;
-  const page = +query.get("page") || 1;
+  const page = +query.get('page') || 1;
 
   useEffect(() => {
     getRestaurant(params.restaurantId).then((data) => {
@@ -126,11 +130,11 @@ export function RestaurantDetailPage() {
 
   return (
     <>
-      <div className="box">
+      <div className='box'>
         <Breadcrumb
           links={[
-            { href: "/", content: "Top" },
-            { href: "/restaurants", content: "ラーメン店一覧" },
+            { href: '/', content: 'Top' },
+            { href: '/restaurants', content: 'ラーメン店一覧' },
             {
               href: `/restaurants/${params.restaurantId}`,
               content: restaurant && `${restaurant.name} の情報`,
@@ -149,7 +153,7 @@ export function RestaurantDetailPage() {
           perPage={perPage}
         />
       )}
-      <div className="box">
+      <div className='box'>
         <Form />
       </div>
     </>
