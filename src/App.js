@@ -40,7 +40,7 @@ export function App() {
         <div className='container'>
           <div className='block has-text-right'>
             <button className='button is-warning is-inverted is-outlined'>
-              ログイン
+              aログイン
             </button>
           </div>
           <Switch>
